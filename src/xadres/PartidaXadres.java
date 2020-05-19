@@ -21,9 +21,12 @@ public class PartidaXadres {
         }
         return  mat;
     }
+    private void colocarNovaPeca(char coluna, int linha, PecaXadres peca){
+        tabuleiro.colocarPeca(peca, new PosicaoXadres(coluna, (char) linha).paraPosicao());
+    }
     private void inicializacao(){
-        tabuleiro.colocarPeca(new Torre(tabuleiro, Cores.BRANCO), new Posicao(2, 1));
-        tabuleiro.colocarPeca(new Rei(tabuleiro, Cores.BRANCO), new Posicao(0, 3));
-        tabuleiro.colocarPeca(new Rei(tabuleiro, Cores.BRANCO), new Posicao(7, 1));
+        colocarNovaPeca('b', 6, new Torre(tabuleiro, Cores.BRANCO));
+        colocarNovaPeca('e', 8, new Rei(tabuleiro, Cores.PRETO));
+        colocarNovaPeca('e', 1, new Rei(tabuleiro, Cores.BRANCO));
     }
 }
