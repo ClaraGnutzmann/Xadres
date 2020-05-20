@@ -2,6 +2,10 @@ package aplication;
 
 import xadres.Cores;
 import xadres.PecaXadres;
+import xadres.PosicaoXadres;
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
 public class UI {
 
@@ -25,6 +29,20 @@ public class UI {
     public static final String ANSI_PURPLE_BACKGROUND = "\u001B[45m";
     public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
     public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
+
+
+    public static PosicaoXadres lerPosicaoXadres(Scanner sc){
+        try {
+
+            String s = sc.nextLine();
+            char coluna = s.charAt(0);
+            int linha = Integer.parseInt(s.substring(1));
+            return new PosicaoXadres(coluna, linha);
+        }
+        catch (RuntimeException e){
+            throw new InputMismatchException("Erro ao ler as posições! Valores validos são de A1 - H8");
+        }
+    }
 
     public static void printTabuleiro(PecaXadres[][] pecas) {
         for (int i=0; i<pecas.length; i++){
