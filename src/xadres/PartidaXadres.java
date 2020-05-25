@@ -27,7 +27,7 @@ public class PartidaXadres {
         Posicao destino = posicaoDestino.paraPosicao();
         validacaoPosicaoorigem(origem);
         Peca pecaCapturada = makeMove(origem, destino);
-        return (PecaXadres) pecaCapturada;
+        return (PecaXadres)pecaCapturada;
     }
     private Peca makeMove(Posicao origem, Posicao destino){
         Peca p = tabuleiro.removerPeca(origem);
@@ -36,8 +36,8 @@ public class PartidaXadres {
         return pecaCapturada;
     }
 
-    public void validacaoPosicaoorigem(Posicao posicao){
-        if(!tabuleiro.aquiTemPeca()){
+    private void validacaoPosicaoorigem(Posicao posicao){
+        if(!tabuleiro.aquiTemPeca(posicao)){
             throw new ExcecaoXadres("Não há peça nessa posição");
         }
     }

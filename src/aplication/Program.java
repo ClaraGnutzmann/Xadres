@@ -18,12 +18,11 @@ public class Program {
             System.out.println("Origem: ");
             PosicaoXadres origem = UI.lerPosicaoXadres(sc);
 
-            UI.printTabuleiro(partidaXadres.getPecas());
             System.out.println();
             System.out.println("Destino: ");
             PosicaoXadres destino = UI.lerPosicaoXadres(sc);
 
-            PecaXadres pecaCapturada = new partidaXadres.performMovimentoXadres(origem, destino);
+            PecaXadres pecaCapturada =  partidaXadres.performMovimentoXadres(origem, destino);
         }
 
 
