@@ -40,6 +40,9 @@ public class PartidaXadres {
         if(!tabuleiro.aquiTemPeca(posicao)){
             throw new ExcecaoXadres("Não há peça nessa posição");
         }
+        if (!tabuleiro.peca(posicao).temAlgumMovimentoPossivel()){
+            throw new ExcecaoXadres("Não tem nenhum movimento possivel para essa peça!");
+        }
     }
 
 

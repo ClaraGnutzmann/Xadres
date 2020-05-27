@@ -3,7 +3,7 @@ package xadres;
 import tabuleiro.Peca;
 import tabuleiro.Tabuleiro;
 
-public class PecaXadres extends Peca {
+public abstract class PecaXadres extends Peca {
     private Cores cores;
 
     public PecaXadres(Tabuleiro tabuleiro, Cores cores) {
