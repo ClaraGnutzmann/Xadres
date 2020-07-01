@@ -22,10 +22,18 @@ public class PartidaXadres {
         }
         return  mat;
     }
+    public boolean[][] possibleMoves(PosicaoXadres possicaoOrigem){
+        Posicao posicao = possicaoOrigem.paraPosicao();
+        validacaoPosicaoorigem(posicao);
+        return tabuleiro.peca(posicao).movimentosPossiveis();
+    }
+
+
     public PecaXadres performMovimentoXadres(PosicaoXadres posicaoOrigem, PosicaoXadres posicaoDestino){
         Posicao origem = posicaoOrigem.paraPosicao();
         Posicao destino = posicaoDestino.paraPosicao();
         validacaoPosicaoorigem(origem);
+        validarPosicaoDestino(origem, destino);
         Peca pecaCapturada = makeMove(origem, destino);
         return (PecaXadres)pecaCapturada;
     }
@@ -42,6 +50,12 @@ public class PartidaXadres {
         }
         if (!tabuleiro.peca(posicao).temAlgumMovimentoPossivel()){
             throw new ExcecaoXadres("Não tem nenhum movimento possivel para essa peça!");
+        }
+    }
+
+    private void validarPosicaoDestino(Posicao origem, Posicao destino){
+        if(!tabuleiro.peca(origem).movimentoPossivel(destino)){
+            throw new ExcecaoXadres("Essa meça não pode ser movida para a posição de destino!");
         }
     }
 

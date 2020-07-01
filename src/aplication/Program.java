@@ -21,11 +21,16 @@ public class Program {
                 System.out.println("Origem: ");
                 PosicaoXadres origem = UI.lerPosicaoXadres(sc);
 
+                boolean[][] possibleMoves = partidaXadres.possibleMoves(origem);
+                UI.limparTela();
+                UI.printTabuleiro(partidaXadres.getPecas(), possibleMoves);
                 System.out.println();
                 System.out.println("Destino: ");
                 PosicaoXadres destino = UI.lerPosicaoXadres(sc);
 
-                PecaXadres pecaCapturada = partidaXadres.performMovimentoXadres(origem, destino);
+
+
+                    PecaXadres pecaCapturada = partidaXadres.performMovimentoXadres(origem, destino);
             }
             catch (TabuleiroExcecao e){
                 System.out.println(e.getMessage());

@@ -1,6 +1,7 @@
 package xadres;
 
 import tabuleiro.Peca;
+import tabuleiro.Posicao;
 import tabuleiro.Tabuleiro;
 
 public abstract class PecaXadres extends Peca {
@@ -13,5 +14,9 @@ public abstract class PecaXadres extends Peca {
 
     public Cores getCores() {
         return cores;
+    }
+    protected boolean temPecaOponente(Posicao posicao){
+        PecaXadres p = (PecaXadres)getTabuleiro().peca(posicao);
+        return p != null && p.getCores() != cores;
     }
 }
