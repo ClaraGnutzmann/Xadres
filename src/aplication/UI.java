@@ -1,6 +1,7 @@
 package aplication;
 
 import xadres.Cores;
+import xadres.PartidaXadres;
 import xadres.PecaXadres;
 import xadres.PosicaoXadres;
 
@@ -47,6 +48,12 @@ public class UI {
             throw new InputMismatchException("Erro ao ler as posições! Valores validos são de A1 - H8");
         }
     }
+    public static void printPartida(PartidaXadres partidaXadres){
+        printTabuleiro(partidaXadres.getPecas());
+        System.out.println();
+        System.out.println("Turno: " + partidaXadres.getTurno());
+        System.out.println("Aguardando jogador: " + partidaXadres.getJogadorAtual());
+    }
 
     public static void printTabuleiro(PecaXadres[][] pecas) {
         for (int i=0; i<pecas.length; i++){
@@ -56,7 +63,7 @@ public class UI {
             }
             System.out.println();
         }
-        System.out.println("  a b c d e f g h");
+        System.out.println("   a  b  c  d  e  f  g  h");
 
     }
     public static void printTabuleiro(PecaXadres[][] pecas, boolean[][] possibleMoves) {
@@ -67,7 +74,7 @@ public class UI {
             }
             System.out.println();
         }
-        System.out.println("  a b c d e f g h");
+        System.out.println("   a  b  c  d  e  f  g  h");
 
     }
 
@@ -78,7 +85,7 @@ public class UI {
         }
         System.out.print(" " + ANSI_RESET);
         if (peca == null) {
-            System.out.print("-");
+            System.out.print("-"+ ANSI_RESET);
         }
         else {
             if (peca.getCores() == Cores.BRANCO) {

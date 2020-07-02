@@ -8,10 +8,22 @@ import xadres.pecas.Torre;
 
 public class PartidaXadres {
     private Tabuleiro tabuleiro;
+    private int turno;
+    private Cores jogadorAtual;
 
     public PartidaXadres(){
         tabuleiro = new Tabuleiro(8, 8);
+        turno = 1;
+        jogadorAtual = Cores.BRANCO;
         inicializacao();
+    }
+
+    public int getTurno(){
+        return turno;
+    }
+
+    public Cores getJogadorAtual(){
+        return jogadorAtual;
     }
     public PecaXadres[][] getPecas(){
         PecaXadres[][] mat = new PecaXadres[tabuleiro.getLinhas()][tabuleiro.getColunas()];
@@ -35,6 +47,7 @@ public class PartidaXadres {
         validacaoPosicaoorigem(origem);
         validarPosicaoDestino(origem, destino);
         Peca pecaCapturada = makeMove(origem, destino);
+        proximoTurno();
         return (PecaXadres)pecaCapturada;
     }
     private Peca makeMove(Posicao origem, Posicao destino){
@@ -48,6 +61,9 @@ public class PartidaXadres {
         if(!tabuleiro.aquiTemPeca(posicao)){
             throw new ExcecaoXadres("Não há peça nessa posição");
         }
+        if(jogadorAtual != ((PecaXadres) tabuleiro.peca(posicao)).getCores()){
+            throw new ExcecaoXadres("Essa peça não pertence a esse jogador");
+        }
         if (!tabuleiro.peca(posicao).temAlgumMovimentoPossivel()){
             throw new ExcecaoXadres("Não tem nenhum movimento possivel para essa peça!");
         }
@@ -57,6 +73,10 @@ public class PartidaXadres {
         if(!tabuleiro.peca(origem).movimentoPossivel(destino)){
             throw new ExcecaoXadres("Essa meça não pode ser movida para a posição de destino!");
         }
+    }
+    private void proximoTurno(){
+        turno++;
+        jogadorAtual = (jogadorAtual == Cores.BRANCO) ? Cores.PRETO :Cores.BRANCO;
     }
 
 

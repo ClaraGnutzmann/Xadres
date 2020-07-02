@@ -8,6 +8,8 @@ import xadres.PosicaoXadres;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import static aplication.UI.limparTela;
+
 public class Program {
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
@@ -15,14 +17,14 @@ public class Program {
 
         while (true){
             try {
-                UI.limparTela();
-                UI.printTabuleiro(partidaXadres.getPecas());
+                limparTela();
+                UI.printPartida(partidaXadres);
                 System.out.println();
                 System.out.println("Origem: ");
                 PosicaoXadres origem = UI.lerPosicaoXadres(sc);
 
                 boolean[][] possibleMoves = partidaXadres.possibleMoves(origem);
-                UI.limparTela();
+                limparTela();
                 UI.printTabuleiro(partidaXadres.getPecas(), possibleMoves);
                 System.out.println();
                 System.out.println("Destino: ");
