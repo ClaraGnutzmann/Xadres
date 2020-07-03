@@ -5,8 +5,11 @@ import xadres.PartidaXadres;
 import xadres.PecaXadres;
 import xadres.PosicaoXadres;
 
+import java.util.Arrays;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class UI {
 
@@ -48,8 +51,10 @@ public class UI {
             throw new InputMismatchException("Erro ao ler as posições! Valores validos são de A1 - H8");
         }
     }
-    public static void printPartida(PartidaXadres partidaXadres){
+    public static void printPartida(PartidaXadres partidaXadres, List<PecaXadres> capturada){
         printTabuleiro(partidaXadres.getPecas());
+        System.out.println();
+        printPecasCapturadas(capturada);
         System.out.println();
         System.out.println("Turno: " + partidaXadres.getTurno());
         System.out.println("Aguardando jogador: " + partidaXadres.getJogadorAtual());
@@ -96,6 +101,21 @@ public class UI {
             }
         }
         System.out.print(" ");
+    }
+    private static void printPecasCapturadas(List<PecaXadres> capturada){
+        List<PecaXadres> white = capturada.stream().filter(x -> x.getCores() == Cores.BRANCO).collect(Collectors.toList());
+        List<PecaXadres> black = capturada.stream().filter(x -> x.getCores() == Cores.PRETO).collect(Collectors.toList());
+        System.out.println("Peças Capturadas: ");
+        System.out.print("BRANCAS: ");
+        System.out.print(ANSI_WHITE);
+        System.out.println(Arrays.toString(white.toArray()));
+        System.out.print(ANSI_RESET);
+        System.out.print("PRETAS: ");
+        System.out.print(ANSI_YELLOW);
+        System.out.println(Arrays.toString(black.toArray()));
+        System.out.print(ANSI_RESET);
+
+
     }
 
 
