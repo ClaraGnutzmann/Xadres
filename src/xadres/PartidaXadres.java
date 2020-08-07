@@ -8,11 +8,14 @@ import xadres.pecas.Torre;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class PartidaXadres {
     private Tabuleiro tabuleiro;
     private int turno;
     private Cores jogadorAtual;
+    private boolean check;
+
 
     private List<Peca> pecasNoTabuleiro = new ArrayList<>();
     private List<Peca> pecasCapturadas = new ArrayList<>();
@@ -25,7 +28,12 @@ public class PartidaXadres {
         inicializacao();
     }
 
+    public boolean getCheck(){
+        return check;
+    }
+
     public int getTurno(){
+
         return turno;
     }
 
@@ -54,6 +62,14 @@ public class PartidaXadres {
         validacaoPosicaoorigem(origem);
         validarPosicaoDestino(origem, destino);
         Peca pecaCapturada = makeMove(origem, destino);
+
+        if(testeCheck(jogadorAtual)) {
+            undoMove(origem, destino,pecaCapturada);
+            throw new ExcecaoXadres("Voce não pode se colocar em Check");
+        }
+        check = (testeCheck(oponente(jogadorAtual))) ? true : false;
+
+
         proximoTurno();
         return (PecaXadres)pecaCapturada;
     }
@@ -66,6 +82,16 @@ public class PartidaXadres {
             pecasCapturadas.add(pecaCapturada);
         }
         return pecaCapturada;
+    }
+    private void undoMove(Posicao origem, Posicao destino, Peca pecaCapturada){
+        Peca p = tabuleiro.removerPeca(destino);
+        tabuleiro.colocarPeca(p, origem);
+
+        if (pecaCapturada != null){
+            tabuleiro.colocarPeca(pecaCapturada, destino);
+            pecasCapturadas.remove(pecaCapturada);
+            pecasNoTabuleiro.add(pecaCapturada);
+        }
     }
 
     private void validacaoPosicaoorigem(Posicao posicao){
@@ -88,6 +114,33 @@ public class PartidaXadres {
     private void proximoTurno(){
         turno++;
         jogadorAtual = (jogadorAtual == Cores.BRANCO) ? Cores.PRETO :Cores.BRANCO;
+    }
+
+    private Cores oponente(Cores cor){
+        return (cor == Cores.BRANCO) ? Cores.PRETO : Cores.BRANCO;
+
+    }
+
+    private PecaXadres rei (Cores cor){
+        List<Peca> list = pecasNoTabuleiro.stream().filter(x ->((PecaXadres)x).getCores() == cor).collect(Collectors.toList());
+        for(Peca p : list){
+            if (p instanceof Rei){
+                return (PecaXadres) p;
+            }
+        }
+        throw new IllegalStateException("Não tem Rei" + cor + "no tabuleiro");
+    }
+    private boolean testeCheck(Cores cor){
+        Posicao reiPosicao = rei(cor).getChessPosition().paraPosicao();
+        List<Peca> pecaOponente = pecasNoTabuleiro.stream().filter(x ->((PecaXadres)x).getCores() == oponente(cor)).collect(Collectors.toList());
+    for (Peca p : pecaOponente){
+        boolean [][] mat = p.movimentosPossiveis();
+        if (mat[reiPosicao.getColuna()][reiPosicao.getLinha()]){
+            return true;
+        }
+    }
+    return false;
+
     }
 
 

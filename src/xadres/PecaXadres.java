@@ -12,11 +12,19 @@ public abstract class PecaXadres extends Peca {
         this.cores = cores;
     }
 
+
     public Cores getCores() {
+
         return cores;
     }
+
+    public PosicaoXadres getChessPosition(){
+        return PosicaoXadres.dePosicao(posicao);
+    }
+
     protected boolean temPecaOponente(Posicao posicao){
         PecaXadres p = (PecaXadres)getTabuleiro().peca(posicao);
         return p != null && p.getCores() != cores;
     }
+
 }
