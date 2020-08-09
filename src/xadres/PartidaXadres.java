@@ -15,6 +15,7 @@ public class PartidaXadres {
     private int turno;
     private Cores jogadorAtual;
     private boolean check;
+    private boolean checkMate;
 
 
     private List<Peca> pecasNoTabuleiro = new ArrayList<>();
@@ -30,6 +31,10 @@ public class PartidaXadres {
 
     public boolean getCheck(){
         return check;
+    }
+
+    public boolean getCheckMate(){
+        return checkMate;
     }
 
     public int getTurno(){
@@ -68,9 +73,12 @@ public class PartidaXadres {
             throw new ExcecaoXadres("Voce não pode se colocar em Check");
         }
         check = (testeCheck(oponente(jogadorAtual))) ? true : false;
-
-
-        proximoTurno();
+        if(testeCheckMate(oponente(jogadorAtual))){
+            checkMate = true;
+        }
+        else {
+            proximoTurno();
+        }
         return (PecaXadres)pecaCapturada;
     }
     private Peca makeMove(Posicao origem, Posicao destino){
@@ -141,6 +149,32 @@ public class PartidaXadres {
     }
     return false;
 
+    }
+
+    private boolean testeCheckMate(Cores cor){
+        if(!testeCheck(cor)){
+            return false;
+        }
+        List<Peca> list = pecasNoTabuleiro.stream().filter(x ->((PecaXadres)x).getCores() == cor).collect(Collectors.toList());
+        for (Peca p : list){
+            boolean[][] mat = p.movimentosPossiveis();
+            for(int i=0; i<tabuleiro.getLinhas(); i++){
+                for(int j=0; j<tabuleiro.getColunas(); j++){
+                    Posicao origem = ((PecaXadres)p).getChessPosition().paraPosicao();
+                    Posicao destino = new Posicao(i, j);
+                    Peca pecaCapturada = makeMove(origem, destino);
+                    boolean testCheck = testeCheck(cor);
+                    undoMove(origem, destino, pecaCapturada);
+                    if(!testeCheck(cor)){
+                        return false;
+                    }
+
+                }
+
+            }
+
+        }
+        return true;
     }
 
 

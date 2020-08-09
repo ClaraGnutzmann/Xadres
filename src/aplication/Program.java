@@ -18,7 +18,7 @@ public class Program {
         PartidaXadres partidaXadres = new PartidaXadres();
         List<PecaXadres> capturada = new ArrayList<>();
 
-        while (true){
+        while (!partidaXadres.getCheckMate()){
             try {
                 limparTela();
                 UI.printPartida(partidaXadres, capturada);
@@ -48,7 +48,7 @@ public class Program {
                 sc.nextLine();
             }
         }
-
-
+        UI.limparTela();
+        UI.printPartida(partidaXadres, capturada);
     }
 }
