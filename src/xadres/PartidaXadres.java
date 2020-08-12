@@ -188,6 +188,7 @@ public class PartidaXadres {
         colocarNovaPeca('a', 1, new Torre(tabuleiro, Cores.BRANCO));
         colocarNovaPeca('b', 1, new Cavalo(tabuleiro, Cores.BRANCO));
         colocarNovaPeca('c', 1, new Bispo(tabuleiro, Cores.BRANCO));
+        colocarNovaPeca('d', 1, new Rainha(tabuleiro, Cores.BRANCO));
         colocarNovaPeca('e', 1, new Rei(tabuleiro, Cores.BRANCO));
         colocarNovaPeca('f', 1, new Bispo(tabuleiro, Cores.BRANCO));
         colocarNovaPeca('g', 1, new Cavalo(tabuleiro, Cores.BRANCO));
@@ -204,6 +205,7 @@ public class PartidaXadres {
         colocarNovaPeca('a', 8, new Torre(tabuleiro, Cores.PRETO));
         colocarNovaPeca('b', 8, new Cavalo(tabuleiro, Cores.PRETO));
         colocarNovaPeca('c', 8, new Bispo(tabuleiro, Cores.PRETO));
+        colocarNovaPeca('d', 8, new Rainha(tabuleiro, Cores.PRETO));
         colocarNovaPeca('e', 8, new Rei(tabuleiro, Cores.PRETO));
         colocarNovaPeca('f', 8, new Bispo(tabuleiro, Cores.PRETO));
         colocarNovaPeca('g', 8, new Cavalo(tabuleiro, Cores.PRETO));

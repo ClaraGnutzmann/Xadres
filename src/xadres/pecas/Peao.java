@@ -11,7 +11,6 @@ public class Peao extends PecaXadres{
         super(tabuleiro, cores);
     }
 
-    @Override
     public boolean[][] movimentosPossiveis() {
         boolean [][] mat = new boolean[getTabuleiro().getColunas()][getTabuleiro().getLinhas()];
 
